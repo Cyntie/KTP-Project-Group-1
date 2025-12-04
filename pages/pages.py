@@ -2,6 +2,7 @@ import tkinter as tk
 
 from pages.production_questions_page import ProductionQuestionPage
 from pages.cleaning_questions_page import CleaningQuestionPage
+from pages.results_page import ResultsPage
 
 class App(tk.Tk):
     def __init__(self):
@@ -16,7 +17,7 @@ class App(tk.Tk):
         self.container = tk.Frame(self)
         self.container.pack(fill="both", expand = True)
                 
-        for PageClass in (StartPage, ProductionQuestionPage, CleaningQuestionPage):
+        for PageClass in (StartPage, ProductionQuestionPage, CleaningQuestionPage, ResultsPage):
             page = PageClass(self.container, self)
             self.pages[PageClass] = page
             page.grid(row=0, column=0, sticky="nsew")
