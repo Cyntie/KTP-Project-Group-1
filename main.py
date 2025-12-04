@@ -1,4 +1,4 @@
-from pages import App
+from pages.pages import App
 
 if __name__ == "__main__":
     app = App()
