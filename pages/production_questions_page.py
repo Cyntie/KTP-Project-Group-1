@@ -29,7 +29,12 @@ class ProductionQuestionPage(tk.Frame):
         self.temp_product_out = tk.Entry(self, textvariable=self.temp_product_out_var, font=("Arial", 14))
         self.temp_product_out.pack(pady=5)
 
-        tk.Button(self, text="Next", font=("Arial", 14), command=self.save_values).pack(pady=10)
+        tk.Label(self, text="Enter current pump capacity in ... :", font=("Arial", 14)).pack(pady=10)
+        self.curr_pump_capacity_var = tk.StringVar()
+        self.curr_pump_capacity = tk.Entry(self, textvariable=self.curr_pump_capacity_var, font=("Arial", 14))
+        self.curr_pump_capacity.pack(pady=5)
+
+        tk.Button(self, text="Submit", font=("Arial", 14), command=self.save_values).pack(pady=10)
 
     def save_values(self):
         self.controller.selected_product = self.product_type.get()
@@ -50,5 +55,11 @@ class ProductionQuestionPage(tk.Frame):
             self.controller.temp_product_out = value
         except ValueError:
             messagebox.showerror("Invalid input for 'product temperature'", "Please enter a number.")
+            return
+        try:
+            value = float(self.curr_pump_capacity_var.get())
+            self.controller.curr_pump_capacity = value
+        except ValueError:
+            messagebox.showerror("Invalid input for 'pump capacity'", "Please enter a number.")
             return
         self.controller.show_page(ResultsPage)
