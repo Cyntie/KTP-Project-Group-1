@@ -15,7 +15,7 @@ class App(tk.Tk):
         self.pages = {}
         
         self.container = tk.Frame(self)
-        self.container.pack(fill="both", expand = True)
+        self.container.pack(fill="both", expand=True)
                 
         for PageClass in (StartPage, ProductionQuestionPage, CleaningQuestionPage, ResultsPage):
             page = PageClass(self.container, self)
@@ -25,9 +25,11 @@ class App(tk.Tk):
         self.show_page(StartPage)
         
     def show_page(self, page_class):
-        page=self.pages[page_class]
+        page = self.pages[page_class]
+        if hasattr(page, "on_show"):
+            page.on_show()
         page.tkraise()
-        
+
 class StartPage(tk.Frame):
     def __init__(self, parent, controller):
         super().__init__(parent)
