@@ -1,6 +1,6 @@
 # pages/results_page.py
 import tkinter as tk
-from logic.inference_engine import evaluate_heat_exchanger
+from logic.inference_engine import evaluate_machine
 
 
 class ResultsPage(tk.Frame):
@@ -15,31 +15,37 @@ class ResultsPage(tk.Frame):
         )
         self.result_label.pack(pady=10)
 
+        tk.Button(
+            self,
+            text="Restart",
+            font=("Arial", 14),
+            bg="#E0C2FF",
+            fg="#0D001A",
+            command=self.go_to_start
+        ).pack(pady=20)
+
+    def go_to_start(self):
+        from pages.start_page import StartPage
+        self.controller.show_page(StartPage)
+
     def on_show(self):
         """
         Called when this page is shown.
         Uses controller.state_mode and controller's stored values.
         """
-        mode = self.controller.state_mode  # "production" or "cleaning"
-
-        if mode == "production":
-            text = evaluate_heat_exchanger(
-                state="production",
-                product=self.controller.selected_product,
-                run_time=self.controller.run_time,
-                temp_water_in=self.controller.temp_water_in,
-                temp_product_out=self.controller.temp_product_out,
-                pump_capacity=self.controller.curr_pump_capacity,
-            )
-        else:
-            # for now we only have fouling rate + pump capacity in the UI.
-            # The formal cleaning rules need more inputs, so we pass only what we can.
-            text = evaluate_heat_exchanger(
-                state="cleaning",
-                # temp_diff, pump_power, pressure_diff, time_at_75 could be added
-                # later via extra fields in CleaningQuestionPage.
-                pump_capacity=self.controller.curr_pump_capacity,
-            )
+        
+        text = evaluate_machine(
+            machine_type=self.controller.machine_type,
+            state=self.controller.state_mode,
+            product=self.controller.selected_product,
+            run_time=self.controller.run_time,
+            curr_pump_capacity=self.controller.curr_pump_capacity,
+            set_pump_capacity=self.controller.set_pump_capacity,
+            curr_pump_power=self.controller.curr_pump_power,
+            set_pump_power=self.controller.set_pump_power,
+            temp_water_in=self.controller.temp_water_in,
+            temp_product_out=self.controller.temp_product_out
+        )
 
         self.result_label.config(text=text)
 

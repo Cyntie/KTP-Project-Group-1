@@ -1,7 +1,7 @@
 # heat exchanger: production state
 HE_PROD_MAX_RUNTIME = {
     "Skim milk": 9.0,
-    "High fat product": 8.0,
+    "Whole milk": 8.0,
     "Cream": 7.0,   
 }
 

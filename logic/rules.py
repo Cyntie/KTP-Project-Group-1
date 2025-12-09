@@ -29,6 +29,17 @@ class Rule:
 def heat_exchanger_rules():
     rules = []
 
+    rules.append(
+    Rule(
+        "HE PREP: compute temp_diff",
+        lambda wm: wm.get("temp_diff") is None
+                  and wm.get("temp_water_in") is not None
+                  and wm.get("temp_product_out") is not None,
+        lambda wm: wm.assert_fact("temp_diff", abs(wm.get("temp_water_in") - wm.get("temp_product_out")))
+        )
+    )
+
+
     #  max runtime by product (production state)
     rules.append(
         Rule(
@@ -41,10 +52,10 @@ def heat_exchanger_rules():
 
     rules.append(
         Rule(
-            "HE PROD: set max runtime high fat",
+            "HE PROD: set max runtime whole milk",
             lambda wm: wm.get("state") == "production"
-                      and wm.get("product") == "High fat product",
-            lambda wm: wm.assert_fact("max_runtime", HE_PROD_MAX_RUNTIME["High fat product"]),
+                      and wm.get("product") == "Whole milk",
+            lambda wm: wm.assert_fact("max_runtime", HE_PROD_MAX_RUNTIME["Whole milk"]),
         )
     )
 
@@ -80,10 +91,12 @@ def heat_exchanger_rules():
             "HE PROD: pump capacity too low",
             lambda wm: (
                 wm.get("state") == "production"
-                and wm.get("pump_power") == 100.0
-                and wm.get("pump_capacity") is not None
-                and wm.get("set_capacity") is not None
-                and wm.get("pump_capacity") < 0.9 * wm.get("set_capacity")
+                and wm.get("curr_pump_capacity") is not None
+                and wm.get("curr_pump_power") is not None
+                and wm.get("set_pump_capacity") is not None
+                and wm.get("set_pump_power") is not None
+                and wm.get("curr_pump_power") >= wm.get("set_pump_power")
+                and wm.get("curr_pump_capacity") < 0.9 * wm.get("set_pump_capacity")
             ),
             lambda wm: (
                 wm.set_output("Machine is dirty: Stop production"),
@@ -91,6 +104,7 @@ def heat_exchanger_rules():
             ),
         )
     )
+
 
     # IF temperature difference > 2.5 °C THEN dirty
     rules.append(
@@ -196,3 +210,17 @@ def heat_exchanger_rules():
 
     return rules
 
+
+def evaporator_rules():
+    rules = []
+    return rules
+
+
+def dryer_rules():
+    rules = []
+    return rules
+
+
+def membranes_rules():
+    rules = []
+    return rules
