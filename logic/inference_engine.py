@@ -1,11 +1,18 @@
 from logic.knowledge import WorkingMemory
-from logic.rules import heat_exchanger_rules, evaporator_rules, dryer_rules, membranes_rules
+from logic.rules.he_rules import heat_exchanger_production_rules, heat_exchanger_cleaning_rules
+from logic.rules.ev_rules import evaporator_production_rules, evaporator_cleaning_rules
+from logic.rules.dr_rules import dryer_production_rules, dryer_cleaning_rules
+from logic.rules.me_rules import membranes_production_rules, membranes_cleaning_rules 
 
 RULE_SETS = {
-    "Heat Exchanger": heat_exchanger_rules,
-    "Evaporator": evaporator_rules,
-    "Dryer": dryer_rules,
-    "Membranes": membranes_rules
+    "Heat Exchanger, production": heat_exchanger_production_rules,
+    "Heat Exchanger, cleaning": heat_exchanger_cleaning_rules,
+    "Evaporator, production": evaporator_production_rules,
+    "Evaporator, cleaning": evaporator_cleaning_rules,
+    "Dryer, production": dryer_production_rules,
+    "Dryer, cleaning": dryer_cleaning_rules,
+    "Membranes, prouction": membranes_production_rules,
+    "Membranes, cleaning": membranes_cleaning_rules
 }
 
 def evaluate_machine(machine_type, state, **inputs):
@@ -23,9 +30,10 @@ def evaluate_machine(machine_type, state, **inputs):
     for k, v in inputs.items():
         wm.assert_fact(k, v)
 
-    rule_func = RULE_SETS.get(machine_type)
+    key = f"{machine_type}, {state.lower()}"
+    rule_func = RULE_SETS.get(key)
     if rule_func is None:
-        return f"No rule set found for machine type '{machine_type}'"
+        return f"No rule set found for machine type '{machine_type} - {state}'"
     
     # run rule base (single forward pass, rules are ordered)
     rules = rule_func()

@@ -1,5 +1,5 @@
 from logic.facts import Fact
-from logic.rules import Rule
+from logic.rules.rule import Rule
 from logic.knowledge import KnowledgeBase
 from logic.inference_engine import InferenceEngine
 

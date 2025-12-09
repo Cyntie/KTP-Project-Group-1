@@ -33,18 +33,27 @@ class ResultsPage(tk.Frame):
         Called when this page is shown.
         Uses controller.state_mode and controller's stored values.
         """
-        
+
+        inputs = {}
+        for attr in [
+            "product",
+            "run_time",
+            "curr_pump_capacity",
+            "curr_pump_power",
+            "temp_water_in",
+            "temp_product_out",
+            "start_pressure",
+            "end_pressure",
+            "time_at_75"
+        ]:
+            value = getattr(self.controller, attr, None)
+            if value is not None:
+                inputs[attr] = value
+
         text = evaluate_machine(
             machine_type=self.controller.machine_type,
             state=self.controller.state_mode,
-            product=self.controller.selected_product,
-            run_time=self.controller.run_time,
-            curr_pump_capacity=self.controller.curr_pump_capacity,
-            set_pump_capacity=self.controller.set_pump_capacity,
-            curr_pump_power=self.controller.curr_pump_power,
-            set_pump_power=self.controller.set_pump_power,
-            temp_water_in=self.controller.temp_water_in,
-            temp_product_out=self.controller.temp_product_out
+            **inputs
         )
 
         self.result_label.config(text=text)

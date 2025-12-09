@@ -1,32 +1,17 @@
+from logic.rules.rule import Rule
+
 from logic.facts import (
     HE_PROD_MAX_RUNTIME,
     HE_PROD_TEMP_DIFF_LIMIT,
     HE_CLEAN_TEMP_DIFF_LIMIT,
     HE_CLEAN_MIN_TIME_AT_75,
-    HE_CLEAN_MAX_PUMP_POWER,
     HE_CLEAN_MAX_PRESSURE_DIFF,
+    HE_SET_PUMP_CAPACITY,
+    HE_SET_PUMP_POWER
 )
 
 
-class Rule:
-    """
-    Simple forward-chaining rule: IF condition(wm) THEN action(wm)
-    """
-    def __init__(self, name, condition, action):
-        self.name = name
-        self.condition = condition  # WorkingMemory -> bool
-        self.action = action        # WorkingMemory -> None
-
-    def try_fire(self, wm):
-        if self.condition(wm):
-            self.action(wm)
-            return True
-        return False
-
-
-# HEAT EXCHANGER — ALL RULES (production + cleaning)
-
-def heat_exchanger_rules():
+def heat_exchanger_production_rules():
     rules = []
 
     rules.append(
@@ -93,10 +78,8 @@ def heat_exchanger_rules():
                 wm.get("state") == "production"
                 and wm.get("curr_pump_capacity") is not None
                 and wm.get("curr_pump_power") is not None
-                and wm.get("set_pump_capacity") is not None
-                and wm.get("set_pump_power") is not None
-                and wm.get("curr_pump_power") >= wm.get("set_pump_power")
-                and wm.get("curr_pump_capacity") < 0.9 * wm.get("set_pump_capacity")
+                and wm.get("curr_pump_power") >= HE_SET_PUMP_POWER
+                and wm.get("curr_pump_capacity") < 0.9 * HE_SET_PUMP_CAPACITY
             ),
             lambda wm: (
                 wm.set_output("Machine is dirty: Stop production"),
@@ -131,8 +114,34 @@ def heat_exchanger_rules():
             lambda wm: wm.set_output("Machine is clean enough to continue production"),
         )
     )
+    return rules
 
-    # CLEANING STATE: diagnosis rules (spec-based)
+
+
+def heat_exchanger_cleaning_rules():
+    rules = []
+
+    rules.append(
+    Rule(
+        "HE PREP: compute temp_diff",
+        lambda wm: wm.get("temp_diff") is None
+                  and wm.get("temp_water_in") is not None
+                  and wm.get("temp_product_out") is not None,
+        lambda wm: wm.assert_fact("temp_diff", abs(wm.get("temp_water_in") - wm.get("temp_product_out")))
+        )
+    )
+
+    
+    rules.append(
+    Rule(
+        "HE PREP: compute pressure_diff",
+        lambda wm: wm.get("pressure") is None
+                  and wm.get("start_pressure") is not None
+                  and wm.get("end_pressure") is not None,
+        lambda wm: wm.assert_fact("pressure_diff", abs(wm.get("end_pressure") - wm.get("start_pressure")))
+        )
+    )
+
 
     # IF temperature difference > 0.5 THEN not yet clean
     rules.append(
@@ -156,8 +165,8 @@ def heat_exchanger_rules():
             "HE CLEAN: pump power too high",
             lambda wm: (
                 wm.get("state") == "cleaning"
-                and wm.get("pump_power") is not None
-                and wm.get("pump_power") > HE_CLEAN_MAX_PUMP_POWER
+                and wm.get("curr_pump_power") is not None
+                and (wm.get("curr_pump_power")/HE_SET_PUMP_POWER) > 0.5
             ),
             lambda wm: (
                 wm.set_output("Machine is not yet clean"),
@@ -210,17 +219,3 @@ def heat_exchanger_rules():
 
     return rules
 
-
-def evaporator_rules():
-    rules = []
-    return rules
-
-
-def dryer_rules():
-    rules = []
-    return rules
-
-
-def membranes_rules():
-    rules = []
-    return rules
