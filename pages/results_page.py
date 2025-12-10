@@ -37,9 +37,13 @@ class ResultsPage(tk.Frame):
         inputs = {}
         for attr in [
             "product",
+            "fat_content",
+            "protein_content",
             "run_time",
             "curr_pump_capacity",
             "curr_pump_power",
+            "curr_density",
+            "max_density",
             "temp_water_in",
             "temp_product_out",
             "start_pressure",

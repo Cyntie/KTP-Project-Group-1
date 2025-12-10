@@ -19,9 +19,9 @@ class HeatExchangerProductionPage(tk.Frame):
 
         #Current run time
         tk.Label(self, text="Enter run time:", font=("Arial", 12)).grid(row=2, column=0, sticky="w", padx=5, pady=5)
-        self.entry_var = tk.StringVar()
-        self.entry = tk.Entry(self, textvariable=self.entry_var, font=("Arial", 12))
-        self.entry.grid(row=2, column=1, sticky="w", padx=5, pady=5)
+        self.run_time_var = tk.StringVar()
+        self.run_time = tk.Entry(self, textvariable=self.run_time_var, font=("Arial", 12))
+        self.run_time.grid(row=2, column=1, sticky="w", padx=5, pady=5)
         tk.Label(self, text="h", font=("Arial", 12)).grid(row=2, column=2, sticky="w", padx=5, pady=5)
 
         #Current pump power
@@ -58,7 +58,7 @@ class HeatExchangerProductionPage(tk.Frame):
         self.controller.product = self.product_type.get()
         #Run time
         try:
-            value = float(self.entry_var.get())
+            value = float(self.run_time_var.get())
             self.controller.run_time = value
         except ValueError:
             messagebox.showerror("Invalid input for 'run time'", "Please enter a number.")
