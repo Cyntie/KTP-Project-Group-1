@@ -41,14 +41,21 @@ class ResultsPage(tk.Frame):
             "protein_content",
             "run_time",
             "curr_pump_capacity",
+            "pump_capacity_t1",
+            "pump_capacity_t2",
             "curr_pump_power",
             "curr_density",
             "max_density",
             "temp_water_in",
             "temp_product_out",
+            "temp_air_in_t1",
+            "temp_product_out_t1",
+            "temp_air_in_t2",
+            "temp_product_out_t2",
             "start_pressure",
             "end_pressure",
-            "time_at_75"
+            "time_at_75",
+            "cycle"
         ]:
             value = getattr(self.controller, attr, None)
             if value is not None:

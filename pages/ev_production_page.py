@@ -7,7 +7,7 @@ class EvaporatorProductionPage(tk.Frame):
         super().__init__(parent)
         self.controller = controller
 
-        tk.Label(self, text="Evaporator – Production", font=("Arial", 14)).grid(row=0, column=0, columnspan=2, pady=20)
+        tk.Label(self, text="Evaporator – Production Page", font=("Arial", 14)).grid(row=0, column=0, columnspan=2, pady=20)
 
         #Fat content
         tk.Label(self, text="Fat content of product:", font=("Arial", 12)).grid(row=1, column=0, sticky="w", padx=5, pady=5)

@@ -7,10 +7,10 @@ class EvaporatorCleaningPage(tk.Frame):
         super().__init__(parent)
         self.controller = controller
 
-        tk.Label(self, text="Evaporator – Cleaning", font=("Arial", 14)).grid(row=0, column=0, columnspan=2, pady=20)
+        tk.Label(self, text="Evaporator – Cleaning Page", font=("Arial", 14)).grid(row=0, column=0, columnspan=2, pady=20)
 
         #Current run time
-        tk.Label(self, text="Enter run time:", font=("Arial", 12)).grid(row=1, column=0, sticky="w", padx=5, pady=5)
+        tk.Label(self, text="Enter cleaning time:", font=("Arial", 12)).grid(row=1, column=0, sticky="w", padx=5, pady=5)
         self.run_time_var = tk.StringVar()
         self.run_time = tk.Entry(self, textvariable=self.run_time_var, font=("Arial", 12))
         self.run_time.grid(row=1, column=1, sticky="w", padx=5, pady=5)

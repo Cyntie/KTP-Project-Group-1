@@ -168,7 +168,7 @@ def heat_exchanger_cleaning_rules():
         )
     )
 
-    # IF pressure difference > 0.5 THEN not yet clean
+    # IF pressure difference > max pressurde difference THEN not yet clean
     rules.append(
         Rule(
             "HE CLEAN: pressure diff too high",

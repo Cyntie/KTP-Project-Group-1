@@ -80,7 +80,6 @@ class HeatExchangerProductionPage(tk.Frame):
             messagebox.showerror("Invalid input for 'current pump capacity'", "Please enter a number.")
             return
     
-        
         #Water-in temperature
         try:
             value = float(self.temp_water_in_var.get())
@@ -96,4 +95,5 @@ class HeatExchangerProductionPage(tk.Frame):
         except ValueError:
             messagebox.showerror("Invalid input for 'product temperature'", "Please enter a number.")
             return
+        
         self.controller.show_page(ResultsPage)
