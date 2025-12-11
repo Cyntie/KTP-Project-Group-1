@@ -44,7 +44,7 @@ def dryer_production_rules():
             ),
             lambda wm: (
                 wm.set_output("Machine is dirty: Stop production"),
-                wm.add_reason(f"Pump capacity too low: {wm.get("pump_capacity_t2")} L/h")
+                wm.add_reason(f"Pump capacity too low: {wm.get("pump_capacity_t2")} L/h. Should be: {DR_PROD_MIN_PERC_PUMP_CAPACITY * DR_MAX_PUMP_CAPACITY} - {DR_MAX_PUMP_CAPACITY} L/h.")
             )
         )
     )
@@ -65,7 +65,7 @@ def dryer_production_rules():
             ),
             lambda wm: (
                 wm.set_output("Machine is dirty: Stop production"),
-                wm.add_reason(f"Difference in temperature difference too low: {wm.get("temp_diff_t1")} °C at t1 and {wm.get("temp_diff_t2")} °C at t2")
+                wm.add_reason(f"Difference in temperature difference too low: {wm.get("temp_diff_t2")} °C at t₂. Should be: {DR_PROD_MAX_DIFF_TEMP_DIFF * wm.get("temp_diff_t1")} - {wm.get("temp_diff_t1")} °C at t₂.")
             )
         )
     )
@@ -111,7 +111,7 @@ def dryer_cleaning_rules():
                       and wm.get("run_time") < wm.get("min_runtime"),
             lambda wm: (
                 wm.set_output("Machine is not yet clean"),
-                wm.add_reason(f"Minimum cleaning time not yet reached: {wm.get("run_time")}/{wm.get("min_runtime")} h for {wm.get("cycle").lower()} cycle")
+                wm.add_reason(f"Minimum cleaning time not yet reached: {wm.get("run_time")}/{wm.get("min_runtime")} h for {wm.get("cycle").lower()} cycle.")
             ),
         )
     )
@@ -127,7 +127,7 @@ def dryer_cleaning_rules():
             ),
             lambda wm: (
                 wm.set_output("Machine is not yet clean"),
-                wm.add_reason(f"Pump power too high for wet cycle: {wm.get("curr_pump_power")} kW")
+                wm.add_reason(f"Pump power too high for wet cycle: {wm.get("curr_pump_power")} kW. Should be: <= {DR_CLEAN_MAX_PERC_PUMP_POWER * DR_MAX_PUMP_POWER} kW.")
             ),
         )
     )

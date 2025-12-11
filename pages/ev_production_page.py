@@ -65,14 +65,14 @@ class EvaporatorProductionPage(tk.Frame):
         self.curr_density_var = tk.StringVar()
         self.curr_density = tk.Entry(self, textvariable=self.curr_density_var, font=("Arial", 12))
         self.curr_density.grid(row=8, column=1, sticky="w", padx=5, pady=5)
-        tk.Label(self, text="kg/m^3", font=("Arial", 12)).grid(row=8, column=2, sticky="w", padx=5, pady=5)
+        tk.Label(self, text="kg/m³", font=("Arial", 12)).grid(row=8, column=2, sticky="w", padx=5, pady=5)
 
         #Maximum density
         tk.Label(self, text="Enter maximum product density:", font=("Arial", 12)).grid(row=9, column=0, sticky="w", padx=5, pady=5)
         self.max_density_var = tk.StringVar()
         self.max_density = tk.Entry(self, textvariable=self.max_density_var, font=("Arial", 12))
         self.max_density.grid(row=9, column=1, sticky="w", padx=5, pady=5)
-        tk.Label(self, text="kg/m^3", font=("Arial", 12)).grid(row=9, column=2, sticky="w", padx=5, pady=5)
+        tk.Label(self, text="kg/m³", font=("Arial", 12)).grid(row=9, column=2, sticky="w", padx=5, pady=5)
 
         tk.Button(self, text="Submit", font=("Arial", 14), command=self.save_values).grid(row=10, column=0, columnspan=2, pady=10)
 
@@ -103,7 +103,6 @@ class EvaporatorProductionPage(tk.Frame):
         except ValueError:
             messagebox.showerror("Invalid input for 'current pump capacity'", "Please enter a number.")
             return
-    
         
         #Water-in temperature
         try:
@@ -119,6 +118,14 @@ class EvaporatorProductionPage(tk.Frame):
             self.controller.temp_product_out = value
         except ValueError:
             messagebox.showerror("Invalid input for 'product temperature'", "Please enter a number.")
+            return
+        
+        # Check that water-in temperature is always higher than product-out temperature        
+        if self.controller.temp_water_in < self.controller.temp_product_out:
+            messagebox.showerror(
+                "Invalid temperatures",
+                "Water-in temperature must be higher than product-out temperature."
+            )
             return
 
         #Current density

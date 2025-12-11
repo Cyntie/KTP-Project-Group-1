@@ -4,9 +4,9 @@ HE_MAX_PUMP_POWER = 20 # kW
 
 # heat exchanger: production state
 HE_PROD_MAX_RUNTIME = {
-    "Skim milk": 9.0,
-    "Whole milk": 8.0,
-    "Cream": 7.0,   
+    "Skim milk": 9.0, # h
+    "Whole milk": 8.0, # h
+    "Cream": 7.0, # h   
 }
 
 HE_PROD_MAX_TEMP_DIFF = 2.5  # °C
@@ -25,9 +25,9 @@ EV_MAX_PUMP_POWER = 25 # kW
 
 # evaporator: production state
 EV_PROD_MAX_RUNTIME = {
-    "Protein 0.5": 20.0,
-    "Protein 4, Fat <= 4": 16.0,
-    "Protein 4, Fat 8": 14.0
+    "Protein 0.5": 20.0, # h
+    "Protein 4, Fat <= 4": 16.0, # h
+    "Protein 4, Fat 8": 14.0 # h
 }
 
 EV_PROD_MAX_TEMP_DIFF = 6.0 # °C
@@ -50,8 +50,8 @@ DR_PROD_MIN_PERC_PUMP_CAPACITY = 0.90
 
 # dryer: cleaning state
 DR_CLEAN_MIN_RUNTIME = {
-    "Wet": 1.0,
-    "Dry": 3.0  
+    "Wet": 1.0, # h
+    "Dry": 3.0  # h
 }
 
 DR_CLEAN_MAX_PERC_PUMP_POWER = 0.5
@@ -61,18 +61,18 @@ DR_CLEAN_MAX_PERC_PUMP_POWER = 0.5
 
 # membranes: production state
 ME_PROD_MAX_TMP = {
-    "MF": 300,
-    "UF": 900,
-    "NF": 1200,
-    "RO": 1500
+    "MF": 300.0, # mbar
+    "UF": 900.0, # mbar
+    "NF": 1200.0, # mbar
+    "RO": 1500.0 # mbar
 }
 
 # membranes: cleaning state
 ME_CLEAN_MAX_TMP = {
-    "MF": 150,
-    "UF": 500,
-    "NF": 800,
-    "RO": 1000
+    "MF": 150.0, # mbar
+    "UF": 500.0, # mbar
+    "NF": 800.0, # mbar
+    "RO": 1000.0 # mbar
 }
 
-ME_CLEAN_MIN_CWF = 100 # L/m2h
+ME_CLEAN_MIN_CWF = 100 # L/m²h

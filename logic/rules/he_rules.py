@@ -63,7 +63,7 @@ def heat_exchanger_production_rules():
                       and wm.get("run_time") > wm.get("max_runtime"),
             lambda wm: (
                 wm.set_output("Machine is dirty: Stop production"),
-                wm.add_reason(f"Max run time exceeded: {wm.get("max_runtime")} h")
+                wm.add_reason(f"Max run time exceeded: {wm.get("run_time")}/{wm.get("max_runtime")} h for {wm.get("product").lower()}.")
             ),
         )
     )
@@ -80,7 +80,7 @@ def heat_exchanger_production_rules():
             ),
             lambda wm: (
                 wm.set_output("Machine is dirty: Stop production"),
-                wm.add_reason(f"Pump capacity too low: {wm.get("curr_pump_capacity")} L/h")
+                wm.add_reason(f"Pump capacity too low: {wm.get("curr_pump_capacity")} L/h. Should be: {HE_PROD_MIN_PERC_PUMP_CAPACITY * HE_MAX_PUMP_CAPACITY} - {HE_MAX_PUMP_CAPACITY} L/h.")
             ),
         )
     )
@@ -96,7 +96,7 @@ def heat_exchanger_production_rules():
             ),
             lambda wm: (
                 wm.set_output("Machine is dirty: Stop production"),
-                wm.add_reason(f"Temperature difference too high: {wm.get("temp_diff")} °C")
+                wm.add_reason(f"Temperature difference too high: {wm.get("temp_diff")} °C. Should be: <= {HE_PROD_MAX_TEMP_DIFF} °C.")
             ),
         )
     )
@@ -148,7 +148,7 @@ def heat_exchanger_cleaning_rules():
             ),
             lambda wm: (
                 wm.set_output("Machine is not yet clean"),
-                wm.add_reason(f"Temperature difference too high: {wm.get("temp_diff")} °C")
+                wm.add_reason(f"Temperature difference too high: {wm.get("temp_diff")} °C. Should be: <= {HE_CLEAN_MAX_TEMP_DIFF} °C.")
             ),
         )
     )
@@ -163,7 +163,7 @@ def heat_exchanger_cleaning_rules():
             ),
             lambda wm: (
                 wm.set_output("Machine is not yet clean"),
-                wm.add_reason(f"Pump power too high: {wm.get("curr_pump_power")} kW")
+                wm.add_reason(f"Pump power too high: {wm.get("curr_pump_power")} kW. Should be: <= {HE_CLEAN_MAX_PERC_PUMP_POWER * HE_MAX_PUMP_POWER} kW.")
             ),
         )
     )
@@ -178,7 +178,7 @@ def heat_exchanger_cleaning_rules():
             ),
             lambda wm: (
                 wm.set_output("Machine is not yet clean"),
-                wm.add_reason(f"Pressure difference too high: {wm.get("pressure_diff")} bar")
+                wm.add_reason(f"Pressure difference too high: {wm.get("pressure_diff")} bar. Should be: <= {HE_CLEAN_MAX_PRESSURE_DIFF} bar.")
             ),
         )
     )
@@ -193,7 +193,7 @@ def heat_exchanger_cleaning_rules():
             ),
             lambda wm: (
                 wm.set_output("Machine is not yet clean"),
-                wm.add_reason(f"Machine has not cleaned for at least {HE_CLEAN_MIN_TIME_AT_75} minutes at 75 °C")
+                wm.add_reason(f"Minimum cleaning time at 75 °C not yet reached: {wm.get("time_at_75")}/{HE_CLEAN_MIN_TIME_AT_75} min.")
             ),
         )
     )

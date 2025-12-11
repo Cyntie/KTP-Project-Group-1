@@ -77,6 +77,14 @@ class HeatExchangerCleaningPage(tk.Frame):
         except ValueError:
             messagebox.showerror("Invalid input for 'product temperature'", "Please enter a number.")
             return
+
+        # Check that water-in temperature is always higher than product-out temperature        
+        if self.controller.temp_water_in < self.controller.temp_product_out:
+            messagebox.showerror(
+                "Invalid temperatures",
+                "Water-in temperature must be higher than product-out temperature."
+            )
+            return
         
         #Pressure start
         try:
@@ -92,6 +100,14 @@ class HeatExchangerCleaningPage(tk.Frame):
             self.controller.end_pressure = value
         except ValueError:
             messagebox.showerror("Invalid input for 'end pressure'", "Please enter a number.")
+            return
+        
+        # Check that end pressure temperature is always higher than start pressure        
+        if self.controller.end_pressure < self.controller.start_pressure:
+            messagebox.showerror(
+                "Invalid pressures",
+                "End pressure temperature must be higher than start pressure."
+            )
             return
         
         #75°C time

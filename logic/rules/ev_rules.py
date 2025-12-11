@@ -63,7 +63,7 @@ def evaporator_production_rules():
                       and wm.get("run_time") > wm.get("max_runtime"),
             lambda wm: (
                 wm.set_output("Machine is dirty: Stop production"),
-                wm.add_reason(f"Max run time exceeded: {wm.get("max_runtime")} h")
+                wm.add_reason(f"Max run time exceeded: {wm.get("run_time")}/{wm.get("max_runtime")} h.")
             ),
         )
     )    
@@ -80,7 +80,7 @@ def evaporator_production_rules():
             ),
             lambda wm: (
                 wm.set_output("Machine is dirty: Stop production"),
-                wm.add_reason(f"Pump capacity too low: {wm.get("curr_pump_capacity")} L/h")
+                wm.add_reason(f"Pump capacity too low: {wm.get("curr_pump_capacity")} L/h. Should be: >= {EV_PROD_MIN_PERC_PUMP_CAPACITY * EV_MAX_PUMP_CAPACITY} L/h.")
             ),
         )
     )
@@ -95,7 +95,7 @@ def evaporator_production_rules():
             ),
             lambda wm: (
                 wm.set_output("Machine is dirty: Stop production"),
-                wm.add_reason(f"Temperature difference too high: {wm.get("temp_diff")} °C")
+                wm.add_reason(f"Temperature difference too high: {wm.get("temp_diff")} °C. Should be: <= {EV_PROD_MAX_TEMP_DIFF} °C.")
             ),
         )
     )
@@ -107,7 +107,7 @@ def evaporator_production_rules():
             lambda wm: (wm.get("curr_density")/wm.get("max_density")) <= EV_PROD_MIN_PERC_DENSITY,
             lambda wm: (
                 wm.set_output("Machine is dirty: Stop production"),
-                wm.add_reason(f"Density too low: {wm.get("curr_density")} kg/m^3")
+                wm.add_reason(f"Density too low: {wm.get("curr_density")} kg/m³. Should be: {EV_PROD_MIN_PERC_DENSITY * wm.get("max_density")} - {wm.get("max_density")} kg/m³.")
             ),
         )
     )
@@ -147,7 +147,7 @@ def evaporator_cleaning_rules():
             ),
             lambda wm: (
                 wm.set_output("Machine is not yet clean"),
-                wm.add_reason(f"Machine has not cleaned for at least {EV_CLEAN_MIN_RUNTIME} h")
+                wm.add_reason(f"Minimum cleaning time not yet reached: {wm.get("run_time")}/{EV_CLEAN_MIN_RUNTIME} h.")
             ),
         )
     )
@@ -162,7 +162,7 @@ def evaporator_cleaning_rules():
             ),
             lambda wm: (
                 wm.set_output("Machine is not yet clean"),
-                wm.add_reason(f"Pump power too high: {wm.get("curr_pump_power")} kW")
+                wm.add_reason(f"Pump power too high: {wm.get("curr_pump_power")} kW. Should be: <= {EV_CLEAN_MAX_PERC_PUMP_POWER * EV_MAX_PUMP_POWER} kW.")
             ),
         )
     )
@@ -177,7 +177,7 @@ def evaporator_cleaning_rules():
             ),
             lambda wm: (
                 wm.set_output("Machine is not yet clean"),
-                wm.add_reason(f"Temperature difference too high: {wm.get("temp_diff")} °C")
+                wm.add_reason(f"Temperature difference too high: {wm.get("temp_diff")} °C. Should be: <= {EV_CLEAN_MAX_TEMP_DIFF}.")
             ),
         )
     )

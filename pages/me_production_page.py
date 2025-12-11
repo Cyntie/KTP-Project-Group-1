@@ -13,7 +13,7 @@ class MembranesProductionPage(tk.Frame):
         tk.Label(self, text="Choose membrane type:", font=("Arial", 12)).grid(row=1, column=0, sticky="w", padx=5, pady=5)
         self.membrane_type = tk.StringVar()
         self.membrane_dropdown = ttk.Combobox(self, textvariable=self.membrane_type, state='readonly')
-        self.membrane_dropdown['values'] = ("MF", "UF", "NF", "RO")
+        self.membrane_dropdown['values'] = ("Micro Filtration", "Ultra Filtration", "Nano Filtration", "Reversed Osmosis")
         self.membrane_dropdown.current(0)
         self.membrane_dropdown.grid(row=1, column=1, sticky="w", padx=5, pady=5)
 

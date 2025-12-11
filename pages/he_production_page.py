@@ -96,4 +96,12 @@ class HeatExchangerProductionPage(tk.Frame):
             messagebox.showerror("Invalid input for 'product temperature'", "Please enter a number.")
             return
         
+        # Check that water-in temperature is always higher than product-out temperature        
+        if self.controller.temp_water_in < self.controller.temp_product_out:
+            messagebox.showerror(
+                "Invalid temperatures",
+                "Water-in temperature must be higher than product-out temperature."
+            )
+            return
+        
         self.controller.show_page(ResultsPage)

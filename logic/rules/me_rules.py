@@ -13,7 +13,7 @@ def membranes_production_rules():
     rules.append(
         Rule(
             "ME PROD: set max tmp MF",
-            lambda wm: wm.get("membrane") == "MF",
+            lambda wm: wm.get("membrane") == "Micro Filtration",
             lambda wm: wm.assert_fact("max_tmp", ME_PROD_MAX_TMP["MF"]),
         )
     )
@@ -21,7 +21,7 @@ def membranes_production_rules():
     rules.append(
         Rule(
             "ME PROD: set max tmp UF",
-            lambda wm: wm.get("membrane") == "UF",
+            lambda wm: wm.get("membrane") == "Ultra Filtration",
             lambda wm: wm.assert_fact("max_tmp", ME_PROD_MAX_TMP["UF"]),
         )
     )
@@ -29,7 +29,7 @@ def membranes_production_rules():
     rules.append(
         Rule(
             "ME PROD: set max tmp NF",
-            lambda wm: wm.get("membrane") == "NF",
+            lambda wm: wm.get("membrane") == "Nano Filtration",
             lambda wm: wm.assert_fact("max_tmp", ME_PROD_MAX_TMP["NF"]),
         )
     )
@@ -37,7 +37,7 @@ def membranes_production_rules():
     rules.append(
         Rule(
             "ME PROD: set max tmp RO",
-            lambda wm: wm.get("membrane") == "RO",
+            lambda wm: wm.get("membrane") == "Reversed Osmosis",
             lambda wm: wm.assert_fact("max_tmp", ME_PROD_MAX_TMP["RO"]),
         )
     )
@@ -53,7 +53,7 @@ def membranes_production_rules():
                       and wm.get("curr_tmp") > wm.get("max_tmp"),
             lambda wm: (
                 wm.set_output("Machine is dirty: Stop production"),
-                wm.add_reason(f"Max TMP exceeded: {wm.get("max_tmp")} mbar")
+                wm.add_reason(f"Max TMP exceeded: {wm.get("curr_tmp")} mbar. Should be: <= {wm.get("max_tmp")} mbar for {wm.get("membrane")}.")
             ),
         )
     )
@@ -77,7 +77,7 @@ def membranes_cleaning_rules():
     rules.append(
         Rule(
             "ME CLEAN: set max tmp MF",
-            lambda wm: wm.get("membrane") == "MF",
+            lambda wm: wm.get("membrane") == "Micro Filtration",
             lambda wm: wm.assert_fact("max_tmp", ME_CLEAN_MAX_TMP["MF"]),
         )
     )
@@ -85,7 +85,7 @@ def membranes_cleaning_rules():
     rules.append(
         Rule(
             "ME CLEAN: set max tmp UF",
-            lambda wm: wm.get("membrane") == "UF",
+            lambda wm: wm.get("membrane") == "Ultra Filtration",
             lambda wm: wm.assert_fact("max_tmp", ME_CLEAN_MAX_TMP["UF"]),
         )
     )
@@ -93,7 +93,7 @@ def membranes_cleaning_rules():
     rules.append(
         Rule(
             "ME CLEAN: set max tmp NF",
-            lambda wm: wm.get("membrane") == "NF",
+            lambda wm: wm.get("membrane") == "Nano Filtration",
             lambda wm: wm.assert_fact("max_tmp", ME_CLEAN_MAX_TMP["NF"]),
         )
     )
@@ -101,7 +101,7 @@ def membranes_cleaning_rules():
     rules.append(
         Rule(
             "ME CLEAN: set max tmp RO",
-            lambda wm: wm.get("membrane") == "RO",
+            lambda wm: wm.get("membrane") == "Reversed Osmosis",
             lambda wm: wm.assert_fact("max_tmp", ME_CLEAN_MAX_TMP["RO"]),
         )
     )
@@ -117,7 +117,7 @@ def membranes_cleaning_rules():
                       and wm.get("curr_tmp") > wm.get("max_tmp"),
             lambda wm: (
                 wm.set_output("Machine is not yet clean"),
-                wm.add_reason(f"Max TMP exceeded: {wm.get("max_tmp")} mbar")
+                wm.add_reason(f"Max TMP exceeded: {wm.get("curr_tmp")} mbar. Should be: <= {wm.get("max_tmp")} mbar for {wm.get("membrane")}.")
             ),
         )
     )
@@ -130,7 +130,7 @@ def membranes_cleaning_rules():
                       and wm.get("curr_cwf") < ME_CLEAN_MIN_CWF,
             lambda wm: (
                 wm.set_output("Machine is not yet clean"),
-                wm.add_reason(f"CWF too low: {wm.get("curr_cwf")} L/m2h")
+                wm.add_reason(f"CWF too low: {wm.get("curr_cwf")} L/m²h. Should be: >= {ME_CLEAN_MIN_CWF} L/m²h.")
             ),
         )
     )

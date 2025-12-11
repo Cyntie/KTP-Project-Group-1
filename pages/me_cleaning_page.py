@@ -13,7 +13,7 @@ class MembranesCleaningPage(tk.Frame):
         tk.Label(self, text="Choose membrane type:", font=("Arial", 12)).grid(row=1, column=0, sticky="w", padx=5, pady=5)
         self.membrane_type = tk.StringVar()
         self.membrane_dropdown = ttk.Combobox(self, textvariable=self.membrane_type, state='readonly')
-        self.membrane_dropdown['values'] = ("MF", "UF", "NF", "RO")
+        self.membrane_dropdown['values'] = ("Micro Filtration", "Ultra Filtration", "Nano Filtration", "Reversed Osmosis")
         self.membrane_dropdown.current(0)
         self.membrane_dropdown.grid(row=1, column=1, sticky="w", padx=5, pady=5)
 
@@ -29,7 +29,7 @@ class MembranesCleaningPage(tk.Frame):
         self.curr_cwf_var = tk.StringVar()
         self.curr_cwf = tk.Entry(self, textvariable=self.curr_cwf_var, font=("Arial", 12))
         self.curr_cwf.grid(row=3, column=1, sticky="w", padx=5, pady=5)
-        tk.Label(self, text="L/m2h", font=("Arial", 12)).grid(row=3, column=2, sticky="w", padx=5, pady=5)
+        tk.Label(self, text="L/m²h", font=("Arial", 12)).grid(row=3, column=2, sticky="w", padx=5, pady=5)
 
         tk.Button(self, text="Submit", font=("Arial", 14), command=self.save_values).grid(row=4, column=0, columnspan=2, pady=10)
 
