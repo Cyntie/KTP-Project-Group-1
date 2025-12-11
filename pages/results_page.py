@@ -55,7 +55,10 @@ class ResultsPage(tk.Frame):
             "start_pressure",
             "end_pressure",
             "time_at_75",
-            "cycle"
+            "cycle",
+            "membrane",
+            "curr_tmp",
+            "curr_cwf"
         ]:
             value = getattr(self.controller, attr, None)
             if value is not None:

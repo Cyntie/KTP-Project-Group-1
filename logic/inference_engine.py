@@ -11,7 +11,7 @@ RULE_SETS = {
     "Evaporator, cleaning": evaporator_cleaning_rules,
     "Dryer, production": dryer_production_rules,
     "Dryer, cleaning": dryer_cleaning_rules,
-    "Membranes, prouction": membranes_production_rules,
+    "Membranes, production": membranes_production_rules,
     "Membranes, cleaning": membranes_cleaning_rules
 }
 

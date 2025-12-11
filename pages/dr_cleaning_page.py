@@ -31,7 +31,7 @@ class DryerCleaningPage(tk.Frame):
         self.curr_pump_power.grid(row=3, column=1, sticky="w", padx=5, pady=5)
         tk.Label(self, text="kW", font=("Arial", 12)).grid(row=3, column=2, sticky="w", padx=5, pady=5)
 
-        tk.Button(self, text="Submit", font=("Arial", 14), command=self.save_values).grid(row=7, column=0, columnspan=2, pady=10)
+        tk.Button(self, text="Submit", font=("Arial", 14), command=self.save_values).grid(row=4, column=0, columnspan=2, pady=10)
     
     def save_values(self):
         self.controller.cycle = self.cycle_type.get()

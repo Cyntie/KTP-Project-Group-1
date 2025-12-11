@@ -135,7 +135,7 @@ def dryer_cleaning_rules():
     # FINAL cleaning rule: if no 'not yet clean', then clean
     rules.append(
         Rule(
-            "HE CLEAN: clean, stop cycle",
+            "DR CLEAN: clean, stop cycle",
             lambda wm: wm.output_text is None,
             lambda wm: wm.set_output("Machine is clean: Stop cleaning cycle"),
         )

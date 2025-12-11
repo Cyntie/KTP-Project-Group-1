@@ -56,10 +56,23 @@ DR_CLEAN_MIN_RUNTIME = {
 
 DR_CLEAN_MAX_PERC_PUMP_POWER = 0.5
 
+
 # membranes
 
-
 # membranes: production state
-
+ME_PROD_MAX_TMP = {
+    "MF": 300,
+    "UF": 900,
+    "NF": 1200,
+    "RO": 1500
+}
 
 # membranes: cleaning state
+ME_CLEAN_MAX_TMP = {
+    "MF": 150,
+    "UF": 500,
+    "NF": 800,
+    "RO": 1000
+}
+
+ME_CLEAN_MIN_CWF = 100 # L/m2h
