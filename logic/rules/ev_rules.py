@@ -101,15 +101,25 @@ def evaporator_production_rules():
     )
 
     # IF density is <= minimum_percentage of maximum density THEN dirty
+    # modified so that when facts are missing, we won't have None/None => error
     rules.append(
         Rule(
             "EV PROD: density too low",
-            lambda wm: (wm.get("curr_density")/wm.get("max_density")) <= EV_PROD_MIN_PERC_DENSITY,
+            lambda wm: (
+                    wm.get("curr_density") is not None
+                    and wm.get("max_density") is not None
+                    and (wm.get("curr_density") / wm.get("max_density")) <= EV_PROD_MIN_PERC_DENSITY
+            ),
             lambda wm: (
                 wm.set_output("Machine is dirty: Stop production"),
-                wm.add_reason(f"Density too low: {wm.get("curr_density")} kg/m³. Should be: {EV_PROD_MIN_PERC_DENSITY * wm.get("max_density")} - {wm.get("max_density")} kg/m³.")
+                wm.add_reason(
+                    f"Density too low: {wm.get('curr_density')} kg/m³. "
+                    f"Should be: {EV_PROD_MIN_PERC_DENSITY * wm.get('max_density')} - "
+                    f"{wm.get('max_density')} kg/m³."
+                )
             ),
         )
+
     )
 
     # FINAL production rule: if no dirty conclusion, then clean enough

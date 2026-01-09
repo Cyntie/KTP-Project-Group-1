@@ -2,6 +2,25 @@
 import tkinter as tk
 from logic.inference_engine import evaluate_machine
 
+def format_result(result: dict) -> str:
+    """
+    result = {"decided": bool, "text": str|None, "reasons": list[str]}
+    """
+    if not isinstance(result, dict):
+        return str(result)
+
+    decided = result.get("decided", False)
+    text = result.get("text", None)
+    reasons = result.get("reasons", []) or []
+
+    if not decided or not text:
+        return "No conclusion could be drawn."
+
+    if reasons:
+        return text + "\nReasons:\n- " + "\n- ".join(reasons)
+
+    return text
+
 
 class ResultsPage(tk.Frame):
     def __init__(self, parent, controller):
@@ -26,6 +45,7 @@ class ResultsPage(tk.Frame):
 
     def go_to_start(self):
         from pages.start_page import StartPage
+        self.controller.reset_inputs()
         self.controller.show_page(StartPage)
 
     def on_show(self):
@@ -64,11 +84,15 @@ class ResultsPage(tk.Frame):
             if value is not None:
                 inputs[attr] = value
 
-        text = evaluate_machine(
+        if self.controller.override_result is not None:
+            result = self.controller.override_result
+            self.controller.override_result = None
+        else:
+            result = evaluate_machine(
             machine_type=self.controller.machine_type,
             state=self.controller.state_mode,
             **inputs
         )
 
-        self.result_label.config(text=text)
+        self.result_label.config(text=format_result(result))
 

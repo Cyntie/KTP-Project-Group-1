@@ -22,7 +22,8 @@ class App(tk.Tk):
         self.state_mode = None
         self.machine_type = None
         self.pages = {}
-        
+        self.override_result = None
+
         self.container = tk.Frame(self)
         self.container.pack(fill="both", expand=True)
                 
@@ -43,3 +44,35 @@ class App(tk.Tk):
         if hasattr(page, "on_show"):
             page.on_show()
         page.tkraise()
+
+    def reset_inputs(self):
+        # clear early result
+        self.override_result = None
+
+        fields_to_clear = [
+            # common
+            "cycle",
+            "run_time",
+            "curr_pump_power",
+            "curr_density",
+            "temp_water_in",
+            "temp_product_out",
+            "start_pressure",
+            "end_pressure",
+            "pump_capacity_t1",
+            "pump_capacity_t2",
+            "temp_air_in_t1",
+            "temp_product_out_t1",
+            "temp_air_in_t2",
+            "temp_product_out_t2",
+            "curr_tmp",
+            "curr_cwf",
+            "product",
+            "fat_content",
+            "protein_content",
+        ]
+
+        for field in fields_to_clear:
+            if hasattr(self, field):
+                delattr(self, field)
+
