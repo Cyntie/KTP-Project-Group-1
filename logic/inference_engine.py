@@ -27,11 +27,7 @@ def _is_unconditional_final_rule(rule) -> bool:
 
 def evaluate_machine_partial(machine_type, state, **inputs):
     """
-    Partial evaluation: runs rules but SKIPS the final 'clean' rule.
-    Returns:
-      - decided: bool
-      - text: conclusion text (or None)
-      - reasons: list[str]
+    Partial evaluation: runs rules but skips the final 'clean' rule. Stops at first conclusion.
     """
     wm = WorkingMemory()
     wm.assert_fact("machine", machine_type)
@@ -57,7 +53,7 @@ def evaluate_machine_partial(machine_type, state, **inputs):
 
         rule.try_fire(wm)
 
-        # stop early once a real diagnosis rule fired
+        # stop early once a real diagnosis rule was fired
         if wm.output_text is not None:
             break
 

@@ -4,6 +4,8 @@ from tkinter import messagebox
 from logic.inference_engine import evaluate_machine_partial
 from pages.results_page import ResultsPage
 
+# New content page for chained questions.
+# The program now shows one input field per page, and allows for possible early results, depending on the inputted values.
 
 class ContentPage(tk.Frame):
     TITLE = "Content"
@@ -56,17 +58,20 @@ class ContentPage(tk.Frame):
 
         self.bind_all("<Return>", lambda e: self.on_next())
 
+    # Starts to step 0 and displays page.
     def on_show(self):
         self.step_index = 0
-        self._render_step()
+        self.render_step()
 
-    def _step_applies(self, step) -> bool:
+    # Conditional check for steps depending on earlier choices.
+    def step_applies(self, step) -> bool:
         cond = step.get("when")
         return True if cond is None else bool(cond(self.controller))
 
-    def _render_step(self):
+    # Function that displays the current question.
+    def render_step(self):
         # skip steps that don't apply
-        while self.step_index < len(self.STEPS) and not self._step_applies(self.STEPS[self.step_index]):
+        while self.step_index < len(self.STEPS) and not self.step_applies(self.STEPS[self.step_index]):
             self.step_index += 1
 
         # if we've skipped past the end, go to results
@@ -78,6 +83,7 @@ class ContentPage(tk.Frame):
         step = self.STEPS[self.step_index]
         self.question_label.config(text=step["label"])
 
+        # remove old input widgets
         if self.choice_menu is not None:
             self.choice_menu.destroy()
             self.choice_menu = None
@@ -85,6 +91,7 @@ class ContentPage(tk.Frame):
         self.input_var.set("")
         self.entry.pack_forget()
 
+        # show either dropdown or text field
         if step["type"] == "choice":
             choices = step.get("choices", [])
             self.choice_var.set("")
@@ -103,7 +110,7 @@ class ContentPage(tk.Frame):
     def go_back(self):
         if self.step_index > 0:
             self.step_index -= 1
-            self._render_step()
+            self.render_step()
         else:
             # go back to start page
             from pages.start_page import StartPage
@@ -113,7 +120,8 @@ class ContentPage(tk.Frame):
         # subclasses can override for validation
         return None
 
-    def _parse_value(self, step):
+    # input validation
+    def parse_value(self, step):
         t = step["type"]
 
         if t == "choice":
@@ -134,9 +142,9 @@ class ContentPage(tk.Frame):
             raise ValueError(f"Unknown type: {t}")
 
         if "min" in step and v < step["min"]:
-            raise ValueError(f"Value must be >= {step['min']}.")
+            raise ValueError(f"Value unrealistically low. Please check again.")
         if "max" in step and v > step["max"]:
-            raise ValueError(f"Value must be <= {step['max']}.")
+            raise ValueError(f"Value unrealistically high. Please check again.")
 
         return v
 
@@ -144,7 +152,7 @@ class ContentPage(tk.Frame):
         step = self.STEPS[self.step_index]
 
         try:
-            value = self._parse_value(step)
+            value = self.parse_value(step)
         except Exception as e:
             messagebox.showerror("Invalid input", str(e))
             return
@@ -158,23 +166,26 @@ class ContentPage(tk.Frame):
 
         inputs = {}
         for s in self.STEPS:
-            if not self._step_applies(s):
+            if not self.step_applies(s):
                 continue
             f = s["field"]
             v = getattr(self.controller, f, None)
             if v is not None:
                 inputs[f] = v
 
+        # tries to see if the rule engine can already decide on the result
         result = evaluate_machine_partial(
             machine_type=self.controller.machine_type,
             state=self.controller.state_mode,
             **inputs
         )
 
+        # if decided, then display the result
         if result.get("decided"):
             self.controller.override_result = result
             self.controller.show_page(ResultsPage)
             return
 
+        # else go to the next step
         self.step_index += 1
-        self._render_step()
+        self.render_step()

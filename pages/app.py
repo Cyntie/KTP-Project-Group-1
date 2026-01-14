@@ -45,12 +45,12 @@ class App(tk.Tk):
             page.on_show()
         page.tkraise()
 
+    # reset function for clearing previous choices/inputs
     def reset_inputs(self):
         # clear early result
         self.override_result = None
 
         fields_to_clear = [
-            # common
             "cycle",
             "run_time",
             "curr_pump_power",
