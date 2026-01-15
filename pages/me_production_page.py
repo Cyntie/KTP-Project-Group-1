@@ -20,5 +20,6 @@ class MembranesProductionPage(ContentPage):
             "label": "Enter current TMP (bar)",
             "type": "float",
             "min": 0,
+            "max": 25,
         },
     ]

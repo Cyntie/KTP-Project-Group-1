@@ -1,4 +1,5 @@
 from pages.content_page import ContentPage
+from logic.facts import HE_MAX_PUMP_POWER
 
 class HeatExchangerCleaningPage(ContentPage):
     TITLE = "Heat Exchanger — Cleaning"
@@ -9,34 +10,43 @@ class HeatExchangerCleaningPage(ContentPage):
             "label": "Enter time at 75 °C (min)",
             "type": "float",
             "min": 0,
+            "max": 45,
         },
         {
             "field": "start_pressure",
             "label": "Enter start pressure (bar)",
             "type": "float",
             "min": 0,
+            "max": 10,
         },
         {
             "field": "end_pressure",
             "label": "Enter end pressure (bar)",
             "type": "float",
             "min": 0,
+            "max": 10,
         },
         {
             "field": "temp_water_in",
             "label": "Enter water-in temperature (°C)",
             "type": "float",
+            "min": 70,
+            "max": 80,
         },
         {
             "field": "temp_product_out",
             "label": "Enter product-out temperature (°C)",
             "type": "float",
+            "min": 65,
+            "max": 80,
         },
                 {
             "field": "curr_pump_power",
             "label": "Enter current pump power (kW)",
             "type": "float",
-            "min": 0,
+            "min": 0.2 * HE_MAX_PUMP_POWER,
+            "max": HE_MAX_PUMP_POWER
+
         },
     ]
 

@@ -61,6 +61,13 @@ class ContentPage(tk.Frame):
     # Starts to step 0 and displays page.
     def on_show(self):
         self.step_index = 0
+
+        # RESET previous inputs
+        for step in self.STEPS:
+            field = step.get("field")
+            if field and hasattr(self.controller, field):
+                delattr(self.controller, field)
+
         self.render_step()
 
     # Conditional check for steps depending on earlier choices.

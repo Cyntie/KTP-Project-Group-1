@@ -1,4 +1,5 @@
 from pages.content_page import ContentPage
+from logic.facts import EV_MAX_PUMP_POWER
 
 class EvaporatorCleaningPage(ContentPage):
     TITLE = "Evaporator — Cleaning"
@@ -14,17 +15,22 @@ class EvaporatorCleaningPage(ContentPage):
             "field": "temp_water_in",
             "label": "Enter water-in temperature (°C)",
             "type": "float",
+            "min": 70,
+            "max": 80,
         },
         {
             "field": "temp_product_out",
             "label": "Enter product-out temperature (°C)",
             "type": "float",
+            "min": 60,
+            "max": 80
         },
         {
             "field": "curr_pump_power",
             "label": "Enter current pump power (kW)",
             "type": "float",
-            "min": 0,
+            "min": 0.2 * EV_MAX_PUMP_POWER,
+            "max": EV_MAX_PUMP_POWER,
         },
     ]
 

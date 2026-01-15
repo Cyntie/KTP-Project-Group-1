@@ -9,6 +9,7 @@ class MembranesCleaningPage(ContentPage):
             "label": "Enter current CWF (L/m²h)",
             "type": "float",
             "min": 0,
+            "max": 400,
         },
         {
             "field": "membrane",
@@ -26,5 +27,6 @@ class MembranesCleaningPage(ContentPage):
             "label": "Enter current TMP (bar)",
             "type": "float",
             "min": 0,
+            "max": 25,
         },
     ]

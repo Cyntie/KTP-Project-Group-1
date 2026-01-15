@@ -1,4 +1,5 @@
 from pages.content_page import ContentPage
+from logic.facts import DR_MAX_PUMP_POWER
 
 class DryerCleaningPage(ContentPage):
     TITLE = "Dryer — Cleaning"
@@ -14,6 +15,8 @@ class DryerCleaningPage(ContentPage):
             "field": "curr_pump_power",
             "label": "Enter current pump power (kW)",
             "type": "float",
+            "min": 0.2 * DR_MAX_PUMP_POWER,
+            "max": DR_MAX_PUMP_POWER,
             "when": lambda c: getattr(c, "cycle", None) == "Wet",
         },
         {
@@ -21,5 +24,6 @@ class DryerCleaningPage(ContentPage):
             "label": "Enter cleaning time (h)",
             "type": "float",
             "min": 0,
+            "max": 4,
         },
     ]
