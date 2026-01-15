@@ -1,5 +1,9 @@
 from pages.content_page import ContentPage
-from logic.facts import HE_MAX_PUMP_POWER
+from logic.facts import (HE_MAX_PUMP_POWER,
+                         HE_CLEAN_MIN_POSSIBLE_75_RUNTIME, HE_CLEAN_MAX_POSSIBLE__75_RUNTIME,
+                         HE_CLEAN_MIN_POSSIBLE_PRESSURE, HE_CLEAN_MAX_POSSIBLE_PRESSURE,
+                         HE_CLEAN_MIN_POSSIBLE_WATER_IN_TEMP, HE_CLEAN_MAX_POSSIBLE_WATER_IN_TEMP,
+                         HE_CLEAN_MIN_POSSIBLE_PRODUCT_OUT_TEMP, HE_CLEAN_MAX_POSSIBLE_PRODUCT_OUT_TEMP)
 
 class HeatExchangerCleaningPage(ContentPage):
     TITLE = "Heat Exchanger — Cleaning"
@@ -9,36 +13,36 @@ class HeatExchangerCleaningPage(ContentPage):
             "field": "time_at_75",
             "label": "Enter time at 75 °C (min)",
             "type": "float",
-            "min": 0,
-            "max": 45,
+            "min": HE_CLEAN_MIN_POSSIBLE_75_RUNTIME,
+            "max": HE_CLEAN_MAX_POSSIBLE__75_RUNTIME,
         },
         {
             "field": "start_pressure",
             "label": "Enter start pressure (bar)",
             "type": "float",
-            "min": 0,
-            "max": 10,
+            "min": HE_CLEAN_MIN_POSSIBLE_PRESSURE,
+            "max": HE_CLEAN_MAX_POSSIBLE_PRESSURE,
         },
         {
             "field": "end_pressure",
             "label": "Enter end pressure (bar)",
             "type": "float",
-            "min": 0,
-            "max": 10,
+            "min": HE_CLEAN_MIN_POSSIBLE_PRESSURE,
+            "max": HE_CLEAN_MAX_POSSIBLE_PRESSURE,
         },
         {
             "field": "temp_water_in",
             "label": "Enter water-in temperature (°C)",
             "type": "float",
-            "min": 70,
-            "max": 80,
+            "min": HE_CLEAN_MIN_POSSIBLE_WATER_IN_TEMP,
+            "max": HE_CLEAN_MAX_POSSIBLE_WATER_IN_TEMP,
         },
         {
             "field": "temp_product_out",
             "label": "Enter product-out temperature (°C)",
             "type": "float",
-            "min": 65,
-            "max": 80,
+            "min": HE_CLEAN_MIN_POSSIBLE_PRODUCT_OUT_TEMP,
+            "max": HE_CLEAN_MAX_POSSIBLE_PRODUCT_OUT_TEMP,
         },
                 {
             "field": "curr_pump_power",

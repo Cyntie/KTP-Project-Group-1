@@ -1,5 +1,7 @@
 from pages.content_page import ContentPage
-from logic.facts import DR_MAX_PUMP_POWER, DR_MAX_PUMP_CAPACITY
+from logic.facts import (DR_MAX_PUMP_POWER, DR_MAX_PUMP_CAPACITY,
+                         DR_PROD_MIN_POSSIBLE_AIR_IN_TEMP, DR_PROD_MAX_POSSIBLE_AIR_IN_TEMP, 
+                         DR_PROD_MIN_POSSIBLE_PRODUCT_OUT_TEMP, DR_PROD_MAX_POSSIBLE_PRODUCT_OUT_TEMP)
 
 class DryerProductionPage(ContentPage):
     TITLE = "Dryer — Production"
@@ -23,32 +25,32 @@ class DryerProductionPage(ContentPage):
             "field": "temp_air_in_t1",
             "label": "Enter air-in temperature at t₁ (°C)",
             "type": "float",
-            "min": 170,
-            "max": 230,
+            "min": DR_PROD_MIN_POSSIBLE_AIR_IN_TEMP,
+            "max": DR_PROD_MAX_POSSIBLE_AIR_IN_TEMP,
             "when": lambda c: getattr(c, "pump_capacity_t1", None) == getattr(c, "pump_capacity_t2", None),
         },
         {
             "field": "temp_product_out_t1",
             "label": "Enter product-out temperature at t₁ (°C)",
             "type": "float",
-            "min": 25,
-            "max": 50,
+            "min": DR_PROD_MIN_POSSIBLE_PRODUCT_OUT_TEMP,
+            "max": DR_PROD_MAX_POSSIBLE_PRODUCT_OUT_TEMP,
             "when": lambda c: getattr(c, "pump_capacity_t1", None) == getattr(c, "pump_capacity_t2", None),
         },
         {
             "field": "temp_air_in_t2",
             "label": "Enter air-in temperature at t₂ (°C)",
             "type": "float",
-            "min": 170,
-            "max": 230,
+            "min": DR_PROD_MIN_POSSIBLE_AIR_IN_TEMP,
+            "max": DR_PROD_MAX_POSSIBLE_AIR_IN_TEMP,
             "when": lambda c: getattr(c, "pump_capacity_t1", None) == getattr(c, "pump_capacity_t2", None),
         },
         {
             "field": "temp_product_out_t2",
             "label": "Enter product-out temperature at t₂ (°C)",
             "type": "float",
-            "min": 25,
-            "max": 50,
+            "min": DR_PROD_MIN_POSSIBLE_PRODUCT_OUT_TEMP,
+            "max": DR_PROD_MAX_POSSIBLE_PRODUCT_OUT_TEMP,
             "when": lambda c: getattr(c, "pump_capacity_t1", None) == getattr(c, "pump_capacity_t2", None),
         },
         {

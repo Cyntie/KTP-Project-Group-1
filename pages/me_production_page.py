@@ -1,4 +1,5 @@
 from pages.content_page import ContentPage
+from logic.facts import ME_PROD_MIN_POSSIBLE_TMP, ME_PROD_MAX_POSSIBLE_TMP
 
 class MembranesProductionPage(ContentPage):
     TITLE = "Membranes — Production"
@@ -19,7 +20,7 @@ class MembranesProductionPage(ContentPage):
             "field": "curr_tmp",
             "label": "Enter current TMP (bar)",
             "type": "float",
-            "min": 0,
-            "max": 25,
+            "min": ME_PROD_MIN_POSSIBLE_TMP,
+            "max": ME_PROD_MAX_POSSIBLE_TMP,
         },
     ]

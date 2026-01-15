@@ -1,5 +1,9 @@
 from pages.content_page import ContentPage
-from logic.facts import EV_MAX_PUMP_POWER, EV_MAX_PUMP_CAPACITY
+from logic.facts import (EV_MAX_PUMP_POWER, EV_MAX_PUMP_CAPACITY,
+                         EV_PROD_MIN_POSSIBLE_RUNTIME, EV_PROD_MAX_POSSIBLE_RUNTIME,
+                         EV_PROD_MIN_POSSIBLE_DENSITY, EV_PROD_MAX_POSSIBLE_DENSITY,
+                         EV_PROD_MIN_POSSIBLE_WATER_IN_TEMP, EV_PROD_MAX_POSSIBLE_WATER_IN_TEMP,
+                         EV_PROD_MIN_POSSIBLE_PRODUCT_OUT_TEMP, EV_PROD_MAX_POSSIBLE_PRODUCT_OUT_TEMP)
 
 class EvaporatorProductionPage(ContentPage):
     TITLE = "Evaporator — Production"
@@ -21,36 +25,36 @@ class EvaporatorProductionPage(ContentPage):
             "field": "run_time",
             "label": "Enter run time (h)",
             "type": "float",
-            "min": 0,
-            "max": 24,
+            "min": EV_PROD_MIN_POSSIBLE_RUNTIME,
+            "max": EV_PROD_MAX_POSSIBLE_RUNTIME,
         },
         {
             "field": "curr_density",
             "label": "Enter current product density (kg/m³)",
             "type": "float",
-            "min": 950,
-            "max": 1100,
+            "min": EV_PROD_MIN_POSSIBLE_DENSITY,
+            "max": EV_PROD_MAX_POSSIBLE_DENSITY,
         },
         {
             "field": "max_density",
             "label": "Enter maximum product density (kg/m³)",
             "type": "float",
-            "min": 950,
-            "max": 1100,
+            "min": EV_PROD_MIN_POSSIBLE_DENSITY,
+            "max": EV_PROD_MAX_POSSIBLE_DENSITY,
         },
         {
             "field": "temp_water_in",
             "label": "Enter water-in temperature (°C)",
             "type": "float",
-            "min": 50,
-            "max": 90,
+            "min": EV_PROD_MIN_POSSIBLE_WATER_IN_TEMP,
+            "max": EV_PROD_MAX_POSSIBLE_WATER_IN_TEMP,
         },
         {
             "field": "temp_product_out",
             "label": "Enter product-out temperature (°C)",
             "type": "float",
-            "min": 44,
-            "max": 90,
+            "min": EV_PROD_MIN_POSSIBLE_PRODUCT_OUT_TEMP,
+            "max": EV_PROD_MAX_POSSIBLE_PRODUCT_OUT_TEMP,
         },
         {
             "field": "curr_pump_power",

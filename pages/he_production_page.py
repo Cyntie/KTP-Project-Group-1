@@ -1,5 +1,8 @@
 from pages.content_page import ContentPage
-from logic.facts import HE_MAX_PUMP_POWER, HE_MAX_PUMP_CAPACITY
+from logic.facts import (HE_MAX_PUMP_POWER, HE_MAX_PUMP_CAPACITY, 
+                         HE_PROD_MIN_POSSIBLE_RUNTIME, HE_PROD_MAX_POSSIBLE_RUNTIME, 
+                         HE_PROD_MIN_POSSIBLE_WATER_IN_TEMP, HE_PROD_MAX_POSSIBLE_WATER_IN_TEMP,
+                         HE_PROD_MIN_POSSIBLE_PRODUCT_OUT_TEMP, HE_PROD_MAX_POSSIBLE_PRODUCT_OUT_TEMP)
 
 class HeatExchangerProductionPage(ContentPage):
     TITLE = "Heat Exchanger — Production"
@@ -15,22 +18,22 @@ class HeatExchangerProductionPage(ContentPage):
             "field": "run_time",
             "label": "Enter run time (h)",
             "type": "float",
-            "min": 0,
-            "max": 10,
+            "min": HE_PROD_MIN_POSSIBLE_RUNTIME,
+            "max": HE_PROD_MAX_POSSIBLE_RUNTIME,
         },
         {
             "field": "temp_water_in",
             "label": "Enter water-in temperature (°C)",
             "type": "float",
-            "min": 65,
-            "max": 95,
+            "min": HE_PROD_MIN_POSSIBLE_WATER_IN_TEMP,
+            "max": HE_PROD_MAX_POSSIBLE_WATER_IN_TEMP,
         },
         {
             "field": "temp_product_out",
             "label": "Enter product-out temperature (°C)",
             "type": "float",
-            "min": 60,
-            "max": 95
+            "min": HE_PROD_MIN_POSSIBLE_PRODUCT_OUT_TEMP,
+            "max": HE_PROD_MAX_POSSIBLE_PRODUCT_OUT_TEMP,
         },
         {
             "field": "curr_pump_power",
