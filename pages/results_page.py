@@ -16,7 +16,7 @@ def format_result(result: dict) -> str:
         return "No conclusion could be drawn."
 
     if reasons:
-        return text + "\nReasons:\n- " + "\n- ".join(reasons)
+        return text + "\n" + "\n".join(reasons)
 
     return text
 

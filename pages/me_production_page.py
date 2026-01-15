@@ -17,7 +17,7 @@ class MembranesProductionPage(ContentPage):
         },
         {
             "field": "curr_tmp",
-            "label": "Enter current TMP (mbar)",
+            "label": "Enter current TMP (bar)",
             "type": "float",
             "min": 0,
         },

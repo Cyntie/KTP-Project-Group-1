@@ -17,6 +17,16 @@ class HeatExchangerProductionPage(ContentPage):
             "min": 0,
         },
         {
+            "field": "temp_water_in",
+            "label": "Enter water-in temperature (°C)",
+            "type": "float",
+        },
+        {
+            "field": "temp_product_out",
+            "label": "Enter product-out temperature (°C)",
+            "type": "float",
+        },
+        {
             "field": "curr_pump_power",
             "label": "Enter current pump power (kW)",
             "type": "float",
@@ -27,16 +37,6 @@ class HeatExchangerProductionPage(ContentPage):
             "label": "Enter current pump capacity (L/h)",
             "type": "float",
             "min": 0,
-        },
-        {
-            "field": "temp_water_in",
-            "label": "Enter water-in temperature (°C)",
-            "type": "float",
-        },
-        {
-            "field": "temp_product_out",
-            "label": "Enter product-out temperature (°C)",
-            "type": "float",
         },
     ]
 

@@ -5,6 +5,12 @@ class MembranesCleaningPage(ContentPage):
 
     STEPS = [
         {
+            "field": "curr_cwf",
+            "label": "Enter current CWF (L/m²h)",
+            "type": "float",
+            "min": 0,
+        },
+        {
             "field": "membrane",
             "label": "Select membrane type",
             "type": "choice",
@@ -17,13 +23,7 @@ class MembranesCleaningPage(ContentPage):
         },
         {
             "field": "curr_tmp",
-            "label": "Enter current TMP (mbar)",
-            "type": "float",
-            "min": 0,
-        },
-        {
-            "field": "curr_cwf",
-            "label": "Enter current CWF (L/m²h)",
+            "label": "Enter current TMP (bar)",
             "type": "float",
             "min": 0,
         },

@@ -3,12 +3,10 @@ from pages.content_page import ContentPage
 class DryerProductionPage(ContentPage):
     TITLE = "Dryer — Production"
 
-    # t2 comes before t1 because pump power + t2 can conclude that the machine is dirty = less steps than if
-    # also asking for t1
     STEPS = [
         {
-            "field": "curr_pump_power",
-            "label": "Enter current pump power (kW)",
+            "field": "pump_capacity_t1",
+            "label": "Enter pump capacity at t₁ (L/h)",
             "type": "float",
             "min": 0,
         },
@@ -18,12 +16,7 @@ class DryerProductionPage(ContentPage):
             "type": "float",
             "min": 0,
         },
-        {
-            "field": "pump_capacity_t1",
-            "label": "Enter pump capacity at t₁ (L/h)",
-            "type": "float",
-            "min": 0,
-        },
+
         {
             "field": "temp_air_in_t1",
             "label": "Enter air-in temperature at t₁ (°C)",
@@ -43,6 +36,12 @@ class DryerProductionPage(ContentPage):
             "field": "temp_product_out_t2",
             "label": "Enter product-out temperature at t₂ (°C)",
             "type": "float",
+        },
+        {
+            "field": "curr_pump_power",
+            "label": "Enter current pump power (kW)",
+            "type": "float",
+            "min": 0,
         },
     ]
 

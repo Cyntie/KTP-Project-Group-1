@@ -53,7 +53,7 @@ def membranes_production_rules():
                       and wm.get("curr_tmp") > wm.get("max_tmp"),
             lambda wm: (
                 wm.set_output("Machine is dirty: Stop production"),
-                wm.add_reason(f"Max TMP exceeded: {wm.get("curr_tmp")} mbar. Should be: <= {wm.get("max_tmp")} mbar for {wm.get("membrane")}.")
+                wm.add_reason(f"Max TMP exceeded: {wm.get("curr_tmp")} mbar. Should be: <= {wm.get("max_tmp")} bar for {wm.get("membrane")}.")
             ),
         )
     )
@@ -117,7 +117,7 @@ def membranes_cleaning_rules():
                       and wm.get("curr_tmp") > wm.get("max_tmp"),
             lambda wm: (
                 wm.set_output("Machine is not yet clean"),
-                wm.add_reason(f"Max TMP exceeded: {wm.get("curr_tmp")} mbar. Should be: <= {wm.get("max_tmp")} mbar for {wm.get("membrane")}.")
+                wm.add_reason(f"Max TMP exceeded: {wm.get("curr_tmp")} mbar. Should be: <= {wm.get("max_tmp")} bar for {wm.get("membrane")}.")
             ),
         )
     )

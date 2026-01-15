@@ -61,18 +61,18 @@ DR_CLEAN_MAX_PERC_PUMP_POWER = 0.5
 
 # membranes: production state
 ME_PROD_MAX_TMP = {
-    "MF": 300.0, # mbar
-    "UF": 900.0, # mbar
-    "NF": 1200.0, # mbar
-    "RO": 1500.0 # mbar
+    "MF": 0.3, # bar
+    "UF": 0.9, # bar
+    "NF": 1.2, # bar
+    "RO": 1.5 # bar
 }
 
 # membranes: cleaning state
 ME_CLEAN_MAX_TMP = {
-    "MF": 150.0, # mbar
-    "UF": 500.0, # mbar
-    "NF": 800.0, # mbar
-    "RO": 1000.0 # mbar
+    "MF": 0.15, # bar
+    "UF": 0.5, # bar
+    "NF": 0.8, # bar
+    "RO": 1.0 # bar
 }
 
 ME_CLEAN_MIN_CWF = 100 # L/m²h

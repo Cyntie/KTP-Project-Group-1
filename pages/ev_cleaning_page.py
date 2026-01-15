@@ -11,12 +11,6 @@ class EvaporatorCleaningPage(ContentPage):
             "min": 0,
         },
         {
-            "field": "curr_pump_power",
-            "label": "Enter current pump power (kW)",
-            "type": "float",
-            "min": 0,
-        },
-        {
             "field": "temp_water_in",
             "label": "Enter water-in temperature (°C)",
             "type": "float",
@@ -25,6 +19,12 @@ class EvaporatorCleaningPage(ContentPage):
             "field": "temp_product_out",
             "label": "Enter product-out temperature (°C)",
             "type": "float",
+        },
+        {
+            "field": "curr_pump_power",
+            "label": "Enter current pump power (kW)",
+            "type": "float",
+            "min": 0,
         },
     ]
 

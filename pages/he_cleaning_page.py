@@ -5,14 +5,20 @@ class HeatExchangerCleaningPage(ContentPage):
 
     STEPS = [
         {
-            "field": "curr_pump_power",
-            "label": "Enter current pump power (kW)",
+            "field": "time_at_75",
+            "label": "Enter time at 75 °C (min)",
             "type": "float",
             "min": 0,
         },
         {
-            "field": "time_at_75",
-            "label": "Enter time at 75 °C (min)",
+            "field": "start_pressure",
+            "label": "Enter start pressure (bar)",
+            "type": "float",
+            "min": 0,
+        },
+        {
+            "field": "end_pressure",
+            "label": "Enter end pressure (bar)",
             "type": "float",
             "min": 0,
         },
@@ -26,15 +32,9 @@ class HeatExchangerCleaningPage(ContentPage):
             "label": "Enter product-out temperature (°C)",
             "type": "float",
         },
-        {
-            "field": "start_pressure",
-            "label": "Enter start pressure (bar)",
-            "type": "float",
-            "min": 0,
-        },
-        {
-            "field": "end_pressure",
-            "label": "Enter end pressure (bar)",
+                {
+            "field": "curr_pump_power",
+            "label": "Enter current pump power (kW)",
             "type": "float",
             "min": 0,
         },
